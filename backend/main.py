@@ -2,8 +2,16 @@ from fastapi import FastAPI
 from sqlalchemy import text
 from database import engine
 import requests, uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
 
 @app.get("/") # tää on vaa testi
 def testi():
