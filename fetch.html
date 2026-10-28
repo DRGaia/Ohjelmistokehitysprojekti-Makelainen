@@ -5,16 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kurssit</title>
   <link rel="stylesheet" href="fetch.css">
+  <script src="fetch.js" defer></script>
 </head>
 <body>
-    
-  <h1>Kurssit</h1>
-  <p id="viesti"></p>
-  <table id="taulu">
-    <thead id="otsikot"></thead>
-    <tbody id="rivit"></tbody>
-  </table>
 
-  <script src="fetch.js"></script>
+  <!-- Yläpalkki -->
+  <header class="ylapalkki">
+    <h1>Kurssit</h1>
+  </header>  
+
+  <!-- Sisältö -->
+  <main class="sisalto">
+
+    <div class="osion-otsikko">
+      <div>
+        <p class="pieni-otsikko">OPPILAITOKSEN HALLINTA</p>
+
+        <h1>Kurssit</h1>
+
+        <p class="alaotsikko">
+          Tarkastele kursseja ja niiden tietoja.
+        </p>
+      </div>
+        <!-- Linkki vie sivun lisäyslomakkeelle. -->
+        <a href="#lisaa-kurssi" class="painike">
+          + Lisää kurssi
+        </a>
+
+    </div>
+     <!--Nämä luvut ovat vain esimerkkejä.
+         Myöhemmin ne voidaan korvata tietokannan tiedoilla!!!!!!!
+     -->
+    <div class="tilastot">
+
+      <article class="tilastokortti">
+        
+        <div>
+          <p class="tilasto-teksti">Kursseja</p>
+          <p class="tilasto-luku">2</p>
+        </div>
+      </article>
+
+      <article class="tilastokortti">
+        
+         <div>
+            <p class="tilasto-teksti">Opettajia</p>
+            <p class="tilasto-luku">2</p>
+           </div>
+      </article>
+
+      <article class="tilastokortti">
+        
+        <div>
+           <p class="tilasto-teksti">Ilmoittautumisia</p>
+           <p class="tilasto-luku">40</p>
+        </div>
+      </article>
+
+    </div>
+    <!--kurssit -->
+    <div>
+      <h2>Kaikki kurssit</h2>
+       <p>
+          Valitse kurssi nähdäksesi tarkemmat tiedot.
+        </p>
+    </div>
+    <!--kurssi 1-->
+
+
+
+  </main>
+
+
 </body>
 </html>
