@@ -1,0 +1,117 @@
+/* Sivun yleinen ulkoasu. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Määritetään fontti, taustaväri ja tekstin väri. */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.6;
+}
+
+/* Kaikille linkeille yhteinen perusmuotoilu. */
+a {
+    color: inherit;
+}
+
+.ylapalkki {
+    color: rgb(0, 0, 0);
+    padding: 0 50%;
+}
+
+.sisalto {
+    width: 90%;
+    max-width: 1250px;
+    margin: 35px auto 55px;
+}
+
+/* Otsikko ja sen vieressä oleva painike. */
+.osion-otsikko {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+}
+
+/* Pieni, kirjaimin kirjoitettu otsikko. */
+.pieni-otsikko {
+    margin: 0 0 8px;
+    color: #4e535a;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.6px;
+}
+
+/* Pääotsikon kokoa säädetään. */
+.osion-otsikko h1 {
+    font-size: clamp(30px, 4vw, 42px);
+}
+
+/* Otsikon alla oleva kuvausteksti. */
+.alaotsikko {
+    max-width: 700px;
+    margin: 0;
+    color: #3f4247;
+    font-size: 15px;
+}
+
+/* Tavallinen osio-otsikon ja lisätietojen rivi. */
+.osio-otsikko-rivi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Hillityn harmaa selittävä teksti. */
+.harmaa-teksti {
+    margin: 0;
+    color: #38393b;
+    font-size: 14px;
+}
+
+/* Kolmen tunnuslukukortin asettelu. */
+.tilastot {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 30px 0 42px;
+}
+
+/* Yksittäinen tilastokortti. */
+.tilastokortti {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    min-width: 0;
+    padding: 22px;
+
+    border: 1px solid #e4e9f1;
+    border-radius: 12px;
+    background-color: white;
+
+    box-shadow: 0 3px 12px rgba(23, 43, 77, 0.04);
+}
+
+/* Tilaston selittävä teksti. */
+.tilasto-teksti {
+    margin: 0;
+    color: #788499;
+    font-size: 13px;
+}
+
+/* Tilaston iso numero. */
+.tilasto-luku {
+    margin: 2px 0 0;
+    color: #172b4d;
+    font-size: 27px;
+    font-weight: bold;
+}
