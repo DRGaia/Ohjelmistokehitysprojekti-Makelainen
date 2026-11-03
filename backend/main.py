@@ -52,6 +52,14 @@ def opiskelijaTiedot():
         kurssikirjautumiset = [dict(row._mapping) for row in result] 
     return kurssikirjautumiset
 
+@app.get("/opiskelijat/{id}")
+def opiskelijanTiedot(id: int):
+    with engine.connect() as connect:
+        result = connect.execute(
+            text("SELECT * FROM opiskelijat WHERE opiskelijanumero = :id"), {"id": id})
+        opiskelija = [dict(row._mapping) for row in result]
+    return opiskelija
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
