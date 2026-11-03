@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2026 at 01:29 PM
+-- Generation Time: Nov 03, 2026 at 12:20 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kurssienhallintajärjestelmä`
+-- Database: `kurssienhallintajarjestelma`
 --
 
 -- --------------------------------------------------------
