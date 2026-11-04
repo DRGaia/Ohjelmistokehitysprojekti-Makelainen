@@ -45,7 +45,7 @@ def opiskelijaTiedot():
         tilat = [dict(row._mapping) for row in result] 
     return tilat
 
-@app.get("/kirjautumiset") 
+@app.get("/kurssikirjautumiset") 
 def opiskelijaTiedot():
     with engine.connect() as connect: 
         result = connect.execute(text("SELECT * FROM kurssikirjautumiset"))
