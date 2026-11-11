@@ -52,13 +52,12 @@ def opiskelijaTiedot():
         kurssikirjautumiset = [dict(row._mapping) for row in result] 
     return kurssikirjautumiset
 
-@app.get("/opiskelijat/{id}")
-def opiskelijanTiedot(id: int):
-    with engine.connect() as connect:
-        result = connect.execute(
-            text("SELECT * FROM opiskelijat WHERE opiskelijanumero = :id"), {"id": id})
-        opiskelija = [dict(row._mapping) for row in result]
-    return opiskelija
+@app.get("/opiskelijat") # ottaa opiskelijoiden tiedot
+def opiskelijaTiedot():
+    with engine.connect() as connect: # yhdistyy databaseen
+        result = connect.execute(text("SELECT * FROM opiskelijat")) # Ottaa tiedot
+        opiskelijat = [dict(row._mapping) for row in result] # tekee Jsonin
+    return opiskelijat # antaa tiedot
 
 if __name__ == "__main__":
     import uvicorn
