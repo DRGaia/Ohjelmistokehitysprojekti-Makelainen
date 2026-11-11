@@ -2,14 +2,29 @@ from fastapi import FastAPI
 from sqlalchemy import text
 from database import engine
 import requests, uvicorn
+from pydantic import BaseModel
+from datetime import date
 from fastapi.middleware.cors import CORSMiddleware
+from routes import opiskelijat , opettajat #, kurssit
+
+
+class Opiskelija(BaseModel): 
+    etunimi: str
+    sukunimi: str
+    syntymapaiva: date
+    vuosikurssi: int
+
 
 app = FastAPI()
+
+app.include_router(opiskelijat.app)
+app.include_router(opettajat.app)
+#app.include_router(kurssit.app)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -17,19 +32,9 @@ app.add_middleware(
 def testi():
     return {"toimii"}
 
-@app.get("/opiskelijat") # ottaa opiskelijoiden tiedot
-def opiskelijaTiedot():
-    with engine.connect() as connect: # yhdistyy databaseen
-        result = connect.execute(text("SELECT * FROM opiskelijat")) # Ottaa tiedot
-        opiskelijat = [dict(row._mapping) for row in result] # tekee Jsonin
-    return opiskelijat # antaa tiedot
 
-@app.get("/opettajat") 
-def opiskelijaTiedot():
-    with engine.connect() as connect: 
-        result = connect.execute(text("SELECT * FROM opettajat"))
-        opettajat = [dict(row._mapping) for row in result] 
-    return opettajat
+
+
 
 @app.get("/kurssit") 
 def opiskelijaTiedot():
@@ -52,13 +57,13 @@ def opiskelijaTiedot():
         kurssikirjautumiset = [dict(row._mapping) for row in result] 
     return kurssikirjautumiset
 
-@app.get("/opiskelijat/{id}")
+""" @app.get("/opiskelijat/{id}")
 def opiskelijanTiedot(id: int):
     with engine.connect() as connect:
         result = connect.execute(
             text("SELECT * FROM opiskelijat WHERE opiskelijanumero = :id"), {"id": id})
         opiskelija = [dict(row._mapping) for row in result]
-    return opiskelija
+    return opiskelija """
 
 if __name__ == "__main__":
     import uvicorn
