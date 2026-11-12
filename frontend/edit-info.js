@@ -23,11 +23,12 @@ const TAULUT = {
     { nimi: "opiskelija_id", tyyppi: "number" }, { nimi: "kurssi_id", tyyppi: "number" },
     { nimi: "kirjautumisaika", tyyppi: "datetime-local" } ] },
 };
+
 // Sivun elementit
-const valinta = document.getElementById("valinta"); // pudotusvalikko
-const lomake = document.getElementById("lomake");   // lisäys / muokkauslomake
-const lista = document.getElementById("lista");     // taulukko
-const viesti = document.getElementById("viesti");   // ilmoitukset käyttäjälle
+const valinta = document.getElementById("valinta");
+const lomake = document.getElementById("lomake");  
+const lista = document.getElementById("lista");
+const viesti = document.getElementById("viesti");
 
 let nykyinen = "kurssit"; // mitä taulua muokataan (vakiona kurssit)
 let muokattava = null;    // muokattavan rivin pääavain (null = lisätään uutta)
@@ -57,8 +58,8 @@ function piirraLomake(rivi = {}) {
     const input = document.createElement("input");
     input.name = k.nimi;
     input.type = k.tyyppi;
-    let arvo = rivi[k.nimi] ?? ""; // esitäytetään kenttä muokattaessa
-    if (k.tyyppi === "datetime-local") arvo = String(arvo).slice(0, 16); // 2026-08-03T09:15
+    let arvo = rivi[k.nimi] ?? "";
+    if (k.tyyppi === "datetime-local") arvo = String(arvo).slice(0, 16);
     input.value = arvo;
     label.appendChild(input);
     lomake.appendChild(label);
@@ -93,8 +94,8 @@ lomake.addEventListener("submit", async (e) => {
     data[k.nimi] = arvo;
   });
   try {
-    if (muokattava === null) await pyynto("/" + nykyinen, "POST", data);                  // uusi rivi
-    else await pyynto("/" + nykyinen + "/" + muokattava, "PUT", data);                    // päivitys
+    if (muokattava === null) await pyynto("/" + nykyinen, "POST", data);              
+    else await pyynto("/" + nykyinen + "/" + muokattava, "PUT", data);              
     muokattava = null;
     viesti.textContent = "Tallennettu.";
     piirraLomake();   // tyhjennetään lomake
