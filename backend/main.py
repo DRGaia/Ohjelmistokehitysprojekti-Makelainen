@@ -1,25 +1,17 @@
 from fastapi import FastAPI
-from sqlalchemy import text
-from database import engine
-import requests, uvicorn
-from pydantic import BaseModel
-from datetime import date
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-from routes import opiskelijat , opettajat #, kurssit
-
-
-class Opiskelija(BaseModel): 
-    etunimi: str
-    sukunimi: str
-    syntymapaiva: date
-    vuosikurssi: int
-
+from routes import opiskelijat, opettajat, kurssit, tilat, kurssikirjautumiset
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 app = FastAPI()
 
 app.include_router(opiskelijat.app)
 app.include_router(opettajat.app)
-#app.include_router(kurssit.app)
+app.include_router(kurssit.app)
+app.include_router(tilat.app)
+app.include_router(kurssikirjautumiset.app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,42 +20,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/") # tää on vaa testi
-def testi():
-    return {"toimii"}
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = PROJECT_DIR / "frontend"
 
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
+@app.get("/")
+def home():
+    return FileResponse(FRONTEND_DIR / "fetch.html")
 
-
-
-@app.get("/kurssit") 
-def opiskelijaTiedot():
-    with engine.connect() as connect: 
-        result = connect.execute(text("SELECT * FROM kurssit"))
-        kurssit = [dict(row._mapping) for row in result] 
-    return kurssit
-
-@app.get("/tilat") 
-def opiskelijaTiedot():
-    with engine.connect() as connect: 
-        result = connect.execute(text("SELECT * FROM tilat"))
-        tilat = [dict(row._mapping) for row in result] 
-    return tilat
-
-@app.get("/kurssikirjautumiset") 
-def opiskelijaTiedot():
-    with engine.connect() as connect: 
-        result = connect.execute(text("SELECT * FROM kurssikirjautumiset"))
-        kurssikirjautumiset = [dict(row._mapping) for row in result] 
-    return kurssikirjautumiset
-
-""" @app.get("/opiskelijat/{id}")
-def opiskelijanTiedot(id: int):
-    with engine.connect() as connect:
-        result = connect.execute(
-            text("SELECT * FROM opiskelijat WHERE opiskelijanumero = :id"), {"id": id})
-        opiskelija = [dict(row._mapping) for row in result]
-    return opiskelija """
+@app.get("/edit")
+def edit():
+    return FileResponse(FRONTEND_DIR / "edit-info.html")
 
 if __name__ == "__main__":
     import uvicorn

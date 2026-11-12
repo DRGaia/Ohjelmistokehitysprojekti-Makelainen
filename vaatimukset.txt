@@ -1,6 +1,0 @@
-Kopioi alla oleva teksti komentokehote:
-pip install fastapi uvicorn sqlalchemy requests pymysql
-jos tulee error joka valittaa että pip ei ole tunnettu termi, niin python versiosi on todennäkösesti vanha.
-
-xampp kannan nimi pitää olla "kurssinhallintajarjestelma"
-kantaa insertataan sql tiedosto joka on tässä repossa.
