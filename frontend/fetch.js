@@ -1,5 +1,6 @@
 // API:n perusosoite
 const API_PERUS = "http://127.0.0.1:8000";
+
 // Sivun elementit, joihin viestit ja kurssit tulostetaan
 const viesti = document.getElementById("viesti");
 const taulu = document.getElementById("taulu");
@@ -14,13 +15,13 @@ async function haeJson(polku) {
   return vastaus.json();
 }
 
-// Hakee kaikki tiedot rinnakkain ja käynnistää näyttämisen
+// Hakee kaikki tiedot ja käynnistää näyttämisen
 async function haeKurssit() {
   try {
     const [kurssit, opettajat, opiskelijat, tilat, kirjautumiset] = await Promise.all([
       haeJson("/kurssit"), haeJson("/opettajat"), haeJson("/opiskelijat"), haeJson("/tilat"), haeJson("/kurssikirjautumiset"),
     ]);
-    // Jos kursseja ei ole kerrotaan siitä eikä jatketa
+    // Jos kursseja ei ole, kerrotaan siitä eikä jatketa
     if (kurssit.length === 0) { viesti.textContent = "Ei kursseja."; return; }
     naytaKurssit(kurssit, opettajat, opiskelijat, tilat, kirjautumiset);
   } catch (virhe) {
@@ -53,7 +54,7 @@ function naytaKurssit(kurssit, opettajat, opiskelijat, tilat, kirjautumiset) {
     const kurssiDiv = document.createElement("div");
     kurssiDiv.classList.add("kurssi");
     // Kurssin nimi otsikoksi
-    const otsikko = document.createElement("h2");
+    const otsikko = document.createElement("h3");
     otsikko.textContent = kurssi.nimi;
     kurssiDiv.appendChild(otsikko);
 
@@ -67,7 +68,7 @@ function naytaKurssit(kurssit, opettajat, opiskelijat, tilat, kirjautumiset) {
       .map((k) => opiskelijat.find((o) => o[KENTAT.opiskelijaId] == k.opiskelija_id))
       .filter(Boolean); // poistetaan tyhjät (opiskelijaa ei löytynyt)
 
-    // Lisätään kurssin tiedot näkymään
+    // Lopuksi lisätään kurssin tiedot näkymään
     lisaaRivi(kurssiDiv, "Kuvaus: " + kurssi.kuvaus);
     lisaaRivi(kurssiDiv, "Alkupäivä: " + kurssi.alkupaiva);
     lisaaRivi(kurssiDiv, "Lopetuspäivä: " + kurssi.loppupaiva);
